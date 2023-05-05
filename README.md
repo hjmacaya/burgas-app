@@ -36,3 +36,11 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Libreria de gráficos
+
+Este proyecto utiliza Chart.js para implementar los gráficos del dashboard. A continuación se presenta de donde se obtuvo la documentación, asi como también el tutorial para su correcto funcionamiento con NextJS:
+
+- [Chart.js documentación](https://www.chartjs.org/docs/latest/)
+- [react-chartjs-2 documentación para su uso en React](https://react-chartjs-2.js.org/)
+- [Tutorial de como implementar los gráficos en la app](https://towardsdev.com/chart-js-next-js-beautiful-data-driven-dashboards-how-to-create-them-fast-and-efficiently-a59e313a3153)
