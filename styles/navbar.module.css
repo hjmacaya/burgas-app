@@ -1,0 +1,59 @@
+nav#navbar {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background-color: var(--dark);
+  padding: 16px 32px;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerNavbar {
+  max-width: 1280px;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logoNavbar {
+  width: 12rem;
+  height: 4rem;
+  /* background-image: url('../../assets/wide_logo_dark.png'); */
+  object-fit: cover;
+  background-color: none;
+  text-decoration: none;
+  text-align: center;
+}
+
+.logoLink {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  margin: 0 16px;
+  padding: 8px 16px;
+  font-size: 16px;
+}
+
+.menu {
+  justify-content: flex-end;
+  margin: 0 -16px;
+}
+
+.linksMenu {
+  color: white;
+  margin: 0 16px;
+  text-decoration: none;
+  transition: 0.4s;
+  padding: 8px 16px;
+  font-size: 16px;
+}
+
+.linksMenu.is-active, .linksMenu:hover {
+  background-color: var(--semi-dark);
+}
