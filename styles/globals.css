@@ -4,3 +4,9 @@
   --dark-two: #2C3333;
   --semi-dark: #0F3460;
 }
+
+#stock-chart {
+  width: 400px;
+  height: 200px;
+  border: 1px solid red;
+}
