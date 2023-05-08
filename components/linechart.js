@@ -8,8 +8,6 @@ import {
   Title,
   Tooltip,
   Legend,
-  Filler,
-  BarElement,
 } from 'chart.js'
 
 // 2. Register the controllers and elements
@@ -20,18 +18,16 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend,
-  Filler,
-  BarElement,
+  Legend
 )
 
 // 3. Import the charts types
-import { Bar } from 'react-chartjs-2'
+import { Line } from 'react-chartjs-2'
 
-export default function BarChart(props) {
+export default function LineChart(props) {
   return (
     <div>
-      <Bar data={props.data} options={props.options} height={250} />
+      <Line data={props.data} options={props.options} height={200} />
     </div>
   )
 }

@@ -4,3 +4,9 @@
   --dark-two: #2C3333;
   --semi-dark: #0F3460;
 }
+
+/* Charts CSS */
+
+.main-chart-container {
+  height: 200px;
+}

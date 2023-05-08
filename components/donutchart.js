@@ -10,7 +10,7 @@ import { Doughnut } from 'react-chartjs-2'
 export default function DonutChart(props) {
   return (
     <div>
-      <Doughnut data={props.data} />
+      <Doughnut data={props.data} options={props.options} height={250} />
     </div>
   )
 }

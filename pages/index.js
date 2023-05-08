@@ -1,6 +1,7 @@
 import Navbar from "../components/navbar"
 import BarChart from "../components/barchart"
 import DonutChart from "../components/donutchart"
+import LineChart from "../components/linechart"
 
 export default function Home() {
 
@@ -13,12 +14,8 @@ export default function Home() {
         legend: {
           position: 'top',
         },
-        title: {
-          display: true,
-          text: 'Burgas Stocks',
-        },
       },
-      maintainAspectRatio: true, // This is to make the chart responsive to width and height
+      maintainAspectRatio: false, // This is to make the chart responsive to width and height
     },
 
     // Initialize the mock-up data
@@ -34,12 +31,17 @@ export default function Home() {
     }
   }
   const donutchartData = {
+    options: {
+      responsive: true,
+      maintainAspectRatio: false, // This is to make the chart responsive to width and height
+    },
+
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: ['Baconator', 'Clasica', 'Veggie', 'BBQ', '4 libra', 'Chicken'],
       datasets: [
         {
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          label: '# de ventas',
+          data: [12, 19, 3, 10, 9, 6],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -61,6 +63,32 @@ export default function Home() {
       ],
     }
   }
+  const linechartData = {
+    options: {
+      responsive: true,
+      plugins:{
+        title: {
+          display:true,
+          text: 'Ingresos por venta',
+          font: {
+            size: 18,
+          },
+        },
+      },
+      maintainAspectRatio: false, // This is to make the chart responsive to width and height
+    },
+    data: {
+      labels: ["2023-01-05", "2023-02-05", "2023-03-05", "2023-04-05", "2023-05-05"],
+      datasets: [
+        {
+          label: "Venta Burgas",
+          data: [100, 84, 77, 86, 98],
+          borderColor: 'rgb(233, 69, 96)',
+          backgroundColor: 'rgb(233, 69, 96, 0.5)',
+        }
+      ]
+    }
+  }
 
   return (
     <div>
@@ -68,18 +96,26 @@ export default function Home() {
         <div className="container text-center my-3">
 
           {/* Sales stadistics - Lines charts */}
-          <div className="row">
+          <div className="row my-4">
 
-            <div className="col-12 col-lg-4"></div>
+            <h2> Algunos indicadores: </h2>
 
-            <div className="col-12 col-lg-4"></div>
+            <div className="col-12 col-lg-4">
+              <LineChart data={linechartData.data} options={linechartData.options} />
+            </div>
 
-            <div className="col-12 col-lg-4"></div>
+            <div className="col-12 col-lg-4">
+              <LineChart data={linechartData.data} options={linechartData.options} />
+            </div>
+
+            <div className="col-12 col-lg-4">
+              <LineChart data={linechartData.data} options={linechartData.options} />
+            </div>
 
           </div>
 
           {/* Inventory stadistics */}
-          <div className="row">
+          <div className="row my-3">
 
             {/* Bar Chart */}
             <div className="col-12 col-lg-6 border">
@@ -90,7 +126,7 @@ export default function Home() {
             {/* Donut Chart */}
             <div className="col-12 col-lg-6 border">
               <h2> Ventas por tipo de burga: </h2>
-              <DonutChart data={donutchartData.data} />
+              <DonutChart data={donutchartData.data} options={donutchartData.options} />
             </div>
 
           </div>
