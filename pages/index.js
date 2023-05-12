@@ -9,8 +9,6 @@ import productos from "../data/productos.json" assert { type: 'json' }
 
 export default function Home() {
   let [users, setUsers] = useState({});
-  // let [token, setToken] = useState();
-  // let [stores, setStores] = useState([]);
   let [principal, setPrincipal] = useState({});
   let [kitchen, setKitchen] = useState({});
   let [buffer, setBuffer] = useState({});
