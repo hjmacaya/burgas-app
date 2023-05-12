@@ -283,7 +283,7 @@ export default function Home() {
                       <th> {product.sku} </th>
                       <td> {findSKU(product.sku)} </td>
                       <td> {product.quantity} </td>
-                      <td> <button className="btn btn-dark"> Graficar </button> </td>
+                      <td> <button className="btn btn-dark" disabled> Graficar </button> </td>
                     </tr>
                   )
                 })}
