@@ -23,6 +23,8 @@ export default function Home() {
   // Get the env variables
   const group = parseInt(process.env.GROUP); // env only save str values
   const secret = process.env.SECRET;
+  const group1 = 6
+  const secret1 = "Sjek4xZnCLfh5]=P)E"
 
   // Get token and stores
   useEffect(() => {
