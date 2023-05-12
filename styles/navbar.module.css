@@ -1,12 +1,12 @@
 nav#navbar {
-  position: relative;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
   z-index: 99;
   background-color: var(--dark);
   padding: 16px 32px;
-  height: 6rem;
+  height: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;

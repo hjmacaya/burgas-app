@@ -10,19 +10,19 @@ const nextConfig = {
     return [
       {
         source: "/warehouse/auth",
-        destination: "https://dev.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/auth"
+        destination: "https://prod.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/auth"
       },
       {
         source: "/warehouse/stores",
-        destination: "https://dev.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/stores"
+        destination: "https://prod.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/stores"
       },
       {
         source: "/warehouse/stores/:storeId/inventory",
-        destination: "https://dev.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/stores/:storeId/inventory"
+        destination: "https://prod.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/stores/:storeId/inventory"
       },
       {
         source: "/warehouse/stores/:storeId/products/:sku",
-        destination: "https://dev.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/stores/:storeId/products/:sku"
+        destination: "https://prod.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/stores/:storeId/products/:sku"
       }
     ]
    }

@@ -9,17 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@material-ui/core": "^4.12.4",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "chart.js": "^4.3.0",
     "dotenv": "^16.0.3",
     "eslint": "8.39.0",
     "eslint-config-next": "13.4.0",
-    "material-table": "^2.0.3",
     "next": "13.4.0",
     "react": "18.2.0",
     "react-chartjs-2": "^5.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^4.8.0"
   }
 }

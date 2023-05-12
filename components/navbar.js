@@ -1,5 +1,6 @@
 import styles from "../styles/navbar.module.css"
 import Link from "next/link"
+import { FaHamburger } from "react-icons/fa"
 
 export default function Navbar() {
   return (
@@ -7,7 +8,7 @@ export default function Navbar() {
       <div className={styles.containerNavbar}>
 
         <Link className={styles.logoLink} href="/">
-          Burgas App
+          <FaHamburger/> Burgas App 
           {/* <img className="logo-navbar" src={logo} alt="" /> */}
         </Link>
 
