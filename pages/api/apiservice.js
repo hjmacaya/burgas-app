@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiOrigin = 'https://dev.api-proyecto.2023-1.tallerdeintegracion.cl';
+const apiOrigin = 'https://prod.api-proyecto.2023-1.tallerdeintegracion.cl';
 const apiRequester = axios.create({
   baseURL: apiOrigin,
 });

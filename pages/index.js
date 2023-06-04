@@ -6,14 +6,19 @@ import React, { useState, useEffect, useRef } from "react"
 import { apiAuth, apiGetInventory, apiGetProducts, apiGetStores } from "./api/apiservice"
 import axios from "axios"
 import productos from "../data/productos.json" assert { type: 'json' }
+import ordenes from "../data/orders.json" assert { type: 'json' }
+import { FaJediOrder } from "react-icons/fa"
 
 export default function Home() {
   let [users, setUsers] = useState({});
+  // let [token, setToken] = useState();
+  // let [stores, setStores] = useState([]);
   let [principal, setPrincipal] = useState({});
   let [kitchen, setKitchen] = useState({});
   let [buffer, setBuffer] = useState({});
   let [currentStore, setCurrentStore] = useState({});
   let [currentProducts, setCurrentProducts] = useState([]);
+  let [currentOrders, setCurrentOrders] = useState([]);
   let [currentProduct, setCurrentProduct] = useState();
   let token = useRef()
   let stores = useRef([])
@@ -90,6 +95,15 @@ export default function Home() {
           unUsedSpace: store.totalSpace - store.usedSpace,
           description: "Es una bodega grande destinada al acopio de ingredientes. Esta bodega tiene una capacidad limitada."
         })
+        handleStoreClick({
+          id: store._id,
+          name: "Principal",
+          totalSpace: store.totalSpace,
+          usedSpace: store.usedSpace,
+          usedPercentege: usedPercentege,
+          unUsedSpace: store.totalSpace - store.usedSpace,
+          description: "Es una bodega grande destinada al acopio de ingredientes. Esta bodega tiene una capacidad limitada."
+        })
       }
     })
   }
@@ -111,6 +125,7 @@ export default function Home() {
 
     // Set the clicked store
     setCurrentStore(store)
+    console.log(store)
     let usedPercentege = ((store.usedSpace / store.totalSpace)*100).toFixed(1)
     percentege.current = usedPercentege
 
@@ -118,6 +133,7 @@ export default function Home() {
     try {
       const products = await apiGetInventory(token.current, store.id)
       console.log(products)
+      setCurrentOrders(ordenes)
       setCurrentProducts(products)
     } catch (err) {
       console.error(err)

@@ -14,8 +14,7 @@ export default function Navbar() {
 
         <div className={styles.menu}>
           <Link className={styles.linksMenu} href="/"> Stocks </Link>
-          <Link className={styles.linksMenu} href="/"> Comprar </Link>
-          <Link className={styles.linksMenu} href="/"> Extra </Link>
+          <Link className={styles.linksMenu} href="/orders"> Ordenes </Link>
         </div>
 
       </div>

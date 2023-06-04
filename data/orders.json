@@ -1,0 +1,65 @@
+[
+    {
+        "id": 1,
+        "cliente": "6",
+        "proveedor": "1",
+        "sku": "31d81c0bac",
+        "cantidad": 10,
+        "vencimiento": "2023-06-04T04:44:46.832507+00:00",
+        "estado": "creada"
+    },
+    {
+        "id": 2,
+        "cliente": "6",
+        "proveedor": "1",
+        "sku": "31d81c0bac",
+        "cantidad": 10,
+        "vencimiento": "2023-06-04T04:44:46.832507+00:00",
+        "estado": "aceptada"
+    },
+    {
+        "id": 3,
+        "cliente": "6",
+        "proveedor": "1",
+        "sku": "31d81c0bac",
+        "cantidad": 10,
+        "vencimiento": "2023-06-04T04:44:46.832507+00:00",
+        "estado": "rechazada"
+    },
+    {
+        "id": 4,
+        "cliente": "6",
+        "proveedor": "1",
+        "sku": "31d81c0bac",
+        "cantidad": 10,
+        "vencimiento": "2023-06-04T04:44:46.832507+00:00",
+        "estado": "creada"
+    },
+    {
+        "id": 5,
+        "cliente": "6",
+        "proveedor": "1",
+        "sku": "31d81c0bac",
+        "cantidad": 10,
+        "vencimiento": "2023-06-04T04:44:46.832507+00:00",
+        "estado": "anulada"
+    },
+    {
+        "id": 6,
+        "cliente": "6",
+        "proveedor": "1",
+        "sku": "31d81c0bac",
+        "cantidad": 10,
+        "vencimiento": "2023-06-04T04:44:46.832507+00:00",
+        "estado": "finalizada"
+    },
+    {
+        "id": 7,
+        "cliente": "6",
+        "proveedor": "1",
+        "sku": "31d81c0bac",
+        "cantidad": 10,
+        "vencimiento": "2023-06-04T04:44:46.832507+00:00",
+        "estado": "finalizada"
+    }
+]

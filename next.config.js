@@ -23,6 +23,10 @@ const nextConfig = {
       {
         source: "/warehouse/stores/:storeId/products/:sku",
         destination: "https://prod.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/stores/:storeId/products/:sku"
+      },
+      {
+        source: "/ordenes-compra",
+        destination: "https://prod.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/stores/:storeId/products/:sku"
       }
     ]
    }
