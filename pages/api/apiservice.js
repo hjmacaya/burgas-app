@@ -54,7 +54,7 @@ async function apiGetInventory(token, storeId) {
 
 async function apiGetProducts(token, storeId, sku) {
   try {
-    const path = `warehouse/stores/${storeId}/products?sku=${sku}`;
+    const path = `/warehouse/stores/${storeId}/products?sku=${sku}`;
     const response = await axios.get(path, {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -67,5 +67,21 @@ async function apiGetProducts(token, storeId, sku) {
   }
 }
 
+async function apiGetOrders() {
+  try {
+    const path = `/ordenes-compra`;
+    const response = await axios.get(path);
+    // const response = await axios.get(path, {
+    //   headers: {
+    //     'Authorization': `Bearer ${token}`,
+    //     'Content-Type': 'application/json'
+    //   }
+    // });
+    return response;
+  } catch (e) {
+    return errorGenerator(e);
+  }
+}
 
-export { apiAuth, apiGetStores, apiGetProducts, apiGetInventory };
+
+export { apiAuth, apiGetStores, apiGetProducts, apiGetInventory, apiGetOrders };

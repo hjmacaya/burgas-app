@@ -27,6 +27,10 @@ const nextConfig = {
       {
         source: "/ordenes-compra",
         destination: "https://prod.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/stores/:storeId/products/:sku"
+      },
+      {
+        source: "/ordenes-compra",
+        destination: "http://lagarto6.ing.puc.cl/ordenes-compra"
       }
     ]
    }
