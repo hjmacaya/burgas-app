@@ -25,8 +25,9 @@ export default function Home() {
   let percentege = useRef(0)
 
   // Get the env variables
+  const envirioment = process.env.ENVIRIOMENT;
   const group = parseInt(process.env.GROUP); // env only save str values
-  const secret = process.env.SECRET;
+  const secret = envirioment == "dev" ? process.env.DEV_SECRET : process.env.PROD_SECRET;
 
   // Get token and stores
   useEffect(() => {
