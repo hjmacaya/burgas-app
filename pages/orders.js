@@ -13,12 +13,13 @@ export default function OrdenesView() {
   let [currentOrders, setCurrentOrders] = useState([]);
 
   // Get the env variables
+  const envirioment = process.env.ENVIRIOMENT;
   const group = parseInt(process.env.GROUP); // env only save str values
-  const secret = process.env.SECRET;
+  const secret = envirioment == "dev" ? process.env.DEV_SECRET : process.env.PROD_SECRET;
 
   // Get token and stores
   useEffect(() => {
-    
+
     setCurrentOrders(ordenes)
     // try {
     //     // Step 1: fetch the token
@@ -26,7 +27,7 @@ export default function OrdenesView() {
     // } catch (err) {
     //     console.error(err)
     // }
-    
+
   }, [])
 
   function prepare_information() {
