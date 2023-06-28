@@ -9,18 +9,33 @@ import productos from "../data/productos.json" assert { type: 'json' }
 import ordenes from "../data/orders.json" assert { type: 'json' }
 import { FaJediOrder } from "react-icons/fa"
 
+// Get the env variables
+const envirioment = process.env.ENVIRIOMENT;
+const group = parseInt(process.env.GROUP); // env only save str values
+const secret = envirioment == "dev" ? process.env.DEV_SECRET : process.env.PROD_SECRET;
+
 export default function OrdenesView() {
   let [currentOrders, setCurrentOrders] = useState([]);
-
-  // Get the env variables
-  const envirioment = process.env.ENVIRIOMENT;
-  const group = parseInt(process.env.GROUP); // env only save str values
-  const secret = envirioment == "dev" ? process.env.DEV_SECRET : process.env.PROD_SECRET;
+  const [filterValue, setFilterValue] = useState(""); // State for the filter value
 
   // Get token and stores
   useEffect(() => {
 
-    setCurrentOrders(ordenes)
+    const fetchOrders = async () => {
+      try {
+        // console.log("fetching orders")
+        // const orders = await apiGetOrders()
+        // console.log(orders)
+        // // ocs = await Promise.all(orders)
+        // // console.log(ocs)
+        setCurrentOrders(ordenes)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    fetchOrders()
+
+    // setCurrentOrders(ordenes)
     // try {
     //     // Step 1: fetch the token
     //     prepare_information()
@@ -37,11 +52,57 @@ export default function OrdenesView() {
     });
   }
 
-  // Function to find the sku info
+  // Function to parse the date
   function changeTime(dt) {
     let ms = Date.parse(dt);
     let fecha = new Date(ms).toLocaleString();
     return fecha;
+  }
+
+  function handleFilterChange(event) {
+    setFilterValue(event.target.value);
+  }
+
+  // Filter the orders based on the selected filter value
+  const filteredOrders = currentOrders.filter((order) =>
+    order.estado.includes(filterValue)
+  );
+
+  // Filter button click handler
+  function handleFilterButtonClick(estado) {
+    if (estado == "Todas") {
+      setFilterValue("");
+      return;
+    }
+    if (estado == "Activas") {
+      setFilterValue("creada");
+      return;
+    }
+    let estado_valido = estado.slice(0, -1)
+    estado_valido = estado_valido.toLowerCase()
+    setFilterValue(estado_valido);
+  }
+
+  // Available "estados" for filtering
+  const estados = [
+    "Todas",
+    "Aceptadas",
+    "Rechazadas",
+    "Activas",
+    "Cumplidas",
+    "Vencidas",
+    "Anuladas",
+  ];
+
+  if (currentOrders.length == 0) {
+    return (
+      <div>
+        <Navbar />
+          <div className="container text-center my-3">
+            No hay ordenes. Error al obtenerlas.
+          </div>
+      </div>
+    )
   }
 
   return (
@@ -55,6 +116,22 @@ export default function OrdenesView() {
               <div>
                 <h2> Ordenes </h2>
               </div>
+
+              <div>
+                {/* Filter buttons */}
+                {estados.map((estado) => (
+                  <button
+                    key={estado}
+                    className={`btn ${
+                      filterValue === estado ? "btn-outline-dark" : "btn-dark"
+                    } mx-2`}
+                    onClick={() => handleFilterButtonClick(estado)}
+                  >
+                    {estado}
+                  </button>
+                ))}
+              </div>
+
             </div>
           </div>
 
@@ -73,19 +150,17 @@ export default function OrdenesView() {
                 </tr>
               </thead>
               <tbody>
-                {currentOrders.map((order) => {
-                  return(
-                    <tr key={order.id}>
-                      <th> {order.id} </th>
-                      <td> {order.cliente} </td>
-                      <td> {order.proveedor} </td>
-                      <td> {order.sku} </td>
-                      <td> {order.cantidad} </td>
-                      <td> {changeTime(order.vencimiento)} </td>
-                      <td> {order.estado} </td>
-                    </tr>
-                  )
-                })}
+              {filteredOrders.map((order) => (
+                <tr key={order.id}>
+                  <th>{order.id}</th>
+                  <td>{order.cliente}</td>
+                  <td>{order.proveedor}</td>
+                  <td>{order.sku}</td>
+                  <td>{order.cantidad}</td>
+                  <td>{changeTime(order.vencimiento)}</td>
+                  <td>{order.estado}</td>
+                </tr>
+              ))}
               </tbody>
             </table>
           </div>

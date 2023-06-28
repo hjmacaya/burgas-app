@@ -27,11 +27,7 @@ const nextConfig = {
         destination: `https://${process.env.ENVIRIOMENT}.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/stores/:storeId/products/:sku`
       },
       {
-        source: "/ordenes-compra",
-        destination: `https://${process.env.ENVIRIOMENT}.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/stores/:storeId/products/:sku`
-      },
-      {
-        source: "/ordenes-compra",
+        source: "/lagarto/ordenes-compra",
         destination: "http://lagarto6.ing.puc.cl/ordenes-compra"
       }
     ]
@@ -39,3 +35,8 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
+
+// {
+//   source: "/ordenes-compra",
+//   destination: `https://${process.env.ENVIRIOMENT}.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/stores/:storeId/products/:sku`
+// }

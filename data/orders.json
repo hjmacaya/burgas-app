@@ -51,7 +51,7 @@
         "sku": "31d81c0bac",
         "cantidad": 10,
         "vencimiento": "2023-06-04T04:44:46.832507+00:00",
-        "estado": "finalizada"
+        "estado": "cumplida"
     },
     {
         "id": 7,
@@ -60,6 +60,6 @@
         "sku": "31d81c0bac",
         "cantidad": 10,
         "vencimiento": "2023-06-04T04:44:46.832507+00:00",
-        "estado": "finalizada"
+        "estado": "cumplida"
     }
 ]

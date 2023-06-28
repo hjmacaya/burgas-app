@@ -8,13 +8,14 @@ export default function Navbar() {
       <div className={styles.containerNavbar}>
 
         <Link className={styles.logoLink} href="/">
-          <FaHamburger/> Burgas App 
+          <FaHamburger/> Burgas App
           {/* <img className="logo-navbar" src={logo} alt="" /> */}
         </Link>
 
         <div className={styles.menu}>
           <Link className={styles.linksMenu} href="/"> Stocks </Link>
           <Link className={styles.linksMenu} href="/orders"> Ordenes </Link>
+          <Link className={styles.linksMenu} href="/bills"> Facturas </Link>
         </div>
 
       </div>
