@@ -16,6 +16,8 @@ export default function Home() {
   let [principal, setPrincipal] = useState({});
   let [kitchen, setKitchen] = useState({});
   let [buffer, setBuffer] = useState({});
+  let [checkIn, setCheckIn] = useState({});
+  let [checkOut, setCheckOut] = useState({});
   let [currentStore, setCurrentStore] = useState({});
   let [currentProducts, setCurrentProducts] = useState([]);
   let [currentOrders, setCurrentOrders] = useState([]);
@@ -85,6 +87,26 @@ export default function Home() {
           usedPercentege: usedPercentege,
           unUsedSpace: store.totalSpace - store.usedSpace,
           description: "Es una bodega especial, ya que posee un espacio \"ilimitado\". Por esto mismo, cuando alguna de las demás bodegas se encuentre llena, el producto será insertado en esta bodega. Es importante destacar que el uso de esta bodega tiene asociado un costo extra."
+        })
+      } else if (store.checkIn) {
+        setCheckIn({
+          id: store._id,
+          name: "Check-In",
+          totalSpace: store.totalSpace,
+          usedSpace: store.usedSpace,
+          usedPercentege: usedPercentege,
+          unUsedSpace: store.totalSpace - store.usedSpace,
+          description: "Es una bodega pequeña destinada a la recepción de los ingredientes. Esta bodega tiene una capacidad limitada."
+        })
+      } else if (store.checkOut) {
+        setCheckOut({
+          id: store._id,
+          name: "Check-Out",
+          totalSpace: store.totalSpace,
+          usedSpace: store.usedSpace,
+          usedPercentege: usedPercentege,
+          unUsedSpace: store.totalSpace - store.usedSpace,
+          description: "Es una bodega pequeña destinada a la entrega de los ingredientes. Esta bodega tiene una capacidad limitada."
         })
       } else {
         setPrincipal({
@@ -256,6 +278,8 @@ export default function Home() {
                   <button className="btn btn-dark mx-2" onClick={() => handleStoreClick(principal)}> Principal </button>
                   <button className="btn btn-dark mx-2" onClick={() => handleStoreClick(kitchen)}> Cocina </button>
                   <button className="btn btn-dark mx-2" onClick={() => handleStoreClick(buffer)}> Buffer </button>
+                  <button className="btn btn-dark mx-2" onClick={() => handleStoreClick(checkIn)}> Check-In </button>
+                  <button className="btn btn-dark mx-2" onClick={() => handleStoreClick(checkOut)}> Check-Out </button>
                 </div>
               </div>
             </div>
