@@ -25,10 +25,6 @@ const nextConfig = {
       {
         source: "/warehouse/stores/:storeId/products/:sku",
         destination: `https://${process.env.ENVIRIOMENT}.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/stores/:storeId/products/:sku`
-      },
-      {
-        source: "/ordenes-compra",
-        destination: "https://lagarto6.ing.puc.cl/ordenes-compra"
       }
     ]
    }

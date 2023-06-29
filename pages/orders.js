@@ -16,29 +16,11 @@ const secret = envirioment == "dev" ? process.env.DEV_SECRET : process.env.PROD_
 
 export default function OrdenesView() {
   let buyOrders = useRef([]);
-  let [currentOrders, setCurrentOrders] = useState([]); // State for the orders
+  const [currentOrders, setCurrentOrders] = useState([]); // State for the orders
   const [filterValue, setFilterValue] = useState(""); // State for the filter value
 
   // Get orders from the API
   useEffect(() => {
-
-    // const fetchOrders = async () => {
-
-    //   try {
-    //     console.log("fetching orders")
-    //     const orders = await apiGetOrders()
-    //     console.log(orders)
-    //     // buyOrders.current = await Promise.all(orders)
-    //     // console.log(ocs)
-    //   }
-
-    //   catch (err) {
-    //     console.error(err)
-    //   }
-    // }
-    // fetchOrders()
-
-    // setCurrentOrders(ordenes)
 
     try {
         // Step 1: fetch the token
@@ -140,7 +122,7 @@ export default function OrdenesView() {
             </div>
           </div>
 
-          <div className="row my-4">
+          <div className="row my-4 table-scrollbar">
             <h3> Historial de ordenes</h3>
             <table className="table table-striped shadow">
               <thead>
@@ -156,8 +138,8 @@ export default function OrdenesView() {
               </thead>
               <tbody>
               {filteredOrders.map((order) => (
-                <tr key={order.id}>
-                  <th>{order.id}</th>
+                <tr key={order._id}>
+                  <th>{order._id}</th>
                   <td>{order.cliente}</td>
                   <td>{order.proveedor}</td>
                   <td>{order.sku}</td>

@@ -59,7 +59,6 @@ export default function Home() {
         console.error(err)
       }
     }
-    prepare_information()
     fetchStores()
   }, [])
 

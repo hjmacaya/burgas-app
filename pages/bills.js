@@ -77,7 +77,40 @@ export default function BillsView() {
 
         {/* Facturas emitidas */}
         <div className="row my-4">
+          <h3> Facturas emitidas </h3>
+          <table className="table table-striped shadow table-scrollbar">
+            <thead>
+              <tr>
+                <th scope="col">Id OC</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Proveedor</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Intereses</th>
+                <th scope="col">Precio total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentBills.map((bill) => {
+                return(
+                  <tr key={bill.id}>
+                    <th> {bill.id} </th>
+                    <td> {bill.cliente} </td>
+                    <td> {bill.proveedor} </td>
+                    <td> {bill.estado} </td>
+                    <td> {bill.precio} </td>
+                    <td> {bill.intereses} </td>
+                    <td> {bill.precioTotal} </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
 
+        {/* Facturas recibidas */}
+        <div className="row my-4 table-scrollbar">
+          <h3> Facturas recibidas </h3>
           <table className="table table-striped shadow">
             <thead>
               <tr>
@@ -99,7 +132,7 @@ export default function BillsView() {
                     <td> {bill.proveedor} </td>
                     <td> {bill.estado} </td>
                     <td> {bill.precio} </td>
-                    <td> {changeTime(bill.intereses)} </td>
+                    <td> {bill.intereses} </td>
                     <td> {bill.precioTotal} </td>
                   </tr>
                 )

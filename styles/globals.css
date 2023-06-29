@@ -15,3 +15,8 @@ p.store-description {
   font-size: 24px;
   text-align: justify;
 }
+
+.table-scrollbar {
+  height: 400px;
+  overflow: auto;
+}

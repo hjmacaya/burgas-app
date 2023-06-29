@@ -69,15 +69,9 @@ async function apiGetProducts(token, storeId, sku) {
 
 async function apiGetOrders() {
   try {
-    const path = `/ordenes-compra`;
+    const path = "/api/ordenes-compra"; // Update the path to the local API route
     const response = await axios.get(path);
-    // const response = await axios.get(path, {
-    //   headers: {
-    //     'Authorization': `Bearer ${token}`,
-    //     'Content-Type': 'application/json'
-    //   }
-    // });
-    return response;
+    return response.data;
   } catch (e) {
     return errorGenerator(e);
   }
