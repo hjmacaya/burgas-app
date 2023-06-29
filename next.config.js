@@ -27,16 +27,11 @@ const nextConfig = {
         destination: `https://${process.env.ENVIRIOMENT}.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/stores/:storeId/products/:sku`
       },
       {
-        source: "/lagarto/ordenes-compra",
-        destination: "http://lagarto6.ing.puc.cl/ordenes-compra"
+        source: "/ordenes-compra",
+        destination: "https://lagarto6.ing.puc.cl/ordenes-compra"
       }
     ]
    }
 }
 
 module.exports = nextConfig
-
-// {
-//   source: "/ordenes-compra",
-//   destination: `https://${process.env.ENVIRIOMENT}.api-proyecto.2023-1.tallerdeintegracion.cl/warehouse/stores/:storeId/products/:sku`
-// }

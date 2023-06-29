@@ -3,7 +3,7 @@ import BarChart from "../components/barchart"
 import DonutChart from "../components/donutchart"
 import LineChart from "../components/linechart"
 import React, { useState, useEffect, useRef } from "react"
-import { apiAuth, apiGetInventory, apiGetProducts, apiGetStores } from "./api/apiservice"
+import { apiAuth, apiGetInventory, apiGetProducts, apiGetStores, apiGetOrders } from "./api/apiservice"
 import axios from "axios"
 import productos from "../data/productos.json" assert { type: 'json' }
 import ordenes from "../data/orders.json" assert { type: 'json' }
@@ -59,6 +59,7 @@ export default function Home() {
         console.error(err)
       }
     }
+    prepare_information()
     fetchStores()
   }, [])
 

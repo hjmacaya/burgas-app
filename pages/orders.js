@@ -15,40 +15,45 @@ const group = parseInt(process.env.GROUP); // env only save str values
 const secret = envirioment == "dev" ? process.env.DEV_SECRET : process.env.PROD_SECRET;
 
 export default function OrdenesView() {
-  let [currentOrders, setCurrentOrders] = useState([]);
+  let buyOrders = useRef([]);
+  let [currentOrders, setCurrentOrders] = useState([]); // State for the orders
   const [filterValue, setFilterValue] = useState(""); // State for the filter value
 
-  // Get token and stores
+  // Get orders from the API
   useEffect(() => {
 
-    const fetchOrders = async () => {
-      try {
-        // console.log("fetching orders")
-        // const orders = await apiGetOrders()
-        // console.log(orders)
-        // // ocs = await Promise.all(orders)
-        // // console.log(ocs)
-        setCurrentOrders(ordenes)
-      } catch (err) {
-        console.error(err)
-      }
-    }
-    fetchOrders()
+    // const fetchOrders = async () => {
+
+    //   try {
+    //     console.log("fetching orders")
+    //     const orders = await apiGetOrders()
+    //     console.log(orders)
+    //     // buyOrders.current = await Promise.all(orders)
+    //     // console.log(ocs)
+    //   }
+
+    //   catch (err) {
+    //     console.error(err)
+    //   }
+    // }
+    // fetchOrders()
 
     // setCurrentOrders(ordenes)
-    // try {
-    //     // Step 1: fetch the token
-    //     prepare_information()
-    // } catch (err) {
-    //     console.error(err)
-    // }
+
+    try {
+        // Step 1: fetch the token
+      prepare_information()
+    } catch (err) {
+      console.error(err)
+    }
 
   }, [])
 
   function prepare_information() {
     apiGetOrders()
     .then((response) => {
-        setCurrentOrders(response);
+      console.log(response)
+      setCurrentOrders(response);
     });
   }
 
@@ -57,6 +62,17 @@ export default function OrdenesView() {
     let ms = Date.parse(dt);
     let fecha = new Date(ms).toLocaleString();
     return fecha;
+  }
+
+  if (currentOrders.length == 0) {
+    return (
+      <div>
+        <Navbar />
+          <div className="container text-center my-3">
+            No hay ordenes. Error al obtenerlas.
+          </div>
+      </div>
+    )
   }
 
   function handleFilterChange(event) {
@@ -94,23 +110,12 @@ export default function OrdenesView() {
     "Anuladas",
   ];
 
-  if (currentOrders.length == 0) {
-    return (
-      <div>
-        <Navbar />
-          <div className="container text-center my-3">
-            No hay ordenes. Error al obtenerlas.
-          </div>
-      </div>
-    )
-  }
 
   return (
     <div>
       <Navbar />
         <div className="container text-center my-3" >
 
-          {/* Inventory */}
           <div className="row my-4">
             <div className="col-12 d-flex justify-content-between">
               <div>

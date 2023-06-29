@@ -69,13 +69,14 @@ async function apiGetProducts(token, storeId, sku) {
 
 async function apiGetOrders() {
   try {
-    const path = `/lagarto/ordenes-compra`;
-    // const response = await axios.get(path);
-    const response = await axios.get(path, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    const path = `/ordenes-compra`;
+    const response = await axios.get(path);
+    // const response = await axios.get(path, {
+    //   headers: {
+    //     'Authorization': `Bearer ${token}`,
+    //     'Content-Type': 'application/json'
+    //   }
+    // });
     return response;
   } catch (e) {
     return errorGenerator(e);
