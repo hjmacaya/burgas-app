@@ -77,5 +77,14 @@ async function apiGetOrders() {
   }
 }
 
+async function apiGetInvoices() {
+  try {
+    const path = "/api/facturas"; // Update the path to the local API route
+    const response = await axios.get(path);
+    return response.data;
+  } catch (e) {
+    return errorGenerator(e);
+  }
+}
 
-export { apiAuth, apiGetStores, apiGetProducts, apiGetInventory, apiGetOrders };
+export { apiAuth, apiGetStores, apiGetProducts, apiGetInventory, apiGetOrders, apiGetInvoices };
