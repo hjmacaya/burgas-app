@@ -122,34 +122,36 @@ export default function OrdenesView() {
             </div>
           </div>
 
-          <div className="row my-4 table-scrollbar">
+          <div className="row my-4">
             <h3> Historial de ordenes</h3>
-            <table className="table table-striped shadow">
-              <thead>
-                <tr>
-                  <th scope="col">Identificador</th>
-                  <th scope="col">Cliente</th>
-                  <th scope="col">Proveedor</th>
-                  <th scope="col">SKU</th>
-                  <th scope="col">Cantidad</th>
-                  <th scope="col">Fecha vencimiento</th>
-                  <th scope="col">Estado</th>
-                </tr>
-              </thead>
-              <tbody>
-              {filteredOrders.map((order) => (
-                <tr key={order._id}>
-                  <th>{order._id}</th>
-                  <td>{order.cliente}</td>
-                  <td>{order.proveedor}</td>
-                  <td>{order.sku}</td>
-                  <td>{order.cantidad}</td>
-                  <td>{changeTime(order.vencimiento)}</td>
-                  <td>{order.estado}</td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
+            <div className="table-scrollbar">
+              <table className="table table-striped shadow">
+                <thead>
+                  <tr>
+                    <th scope="col">Identificador</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Proveedor</th>
+                    <th scope="col">SKU</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Fecha vencimiento</th>
+                    <th scope="col">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {filteredOrders.map((order) => (
+                  <tr key={order._id}>
+                    <th>{order._id}</th>
+                    <td>{order.cliente}</td>
+                    <td>{order.proveedor}</td>
+                    <td>{order.sku}</td>
+                    <td>{order.cantidad}</td>
+                    <td>{changeTime(order.vencimiento)}</td>
+                    <td>{order.estado}</td>
+                  </tr>
+                ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
         </div>

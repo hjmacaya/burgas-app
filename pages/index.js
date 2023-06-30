@@ -308,28 +308,30 @@ export default function Home() {
           {/* Productos en el inventario */}
           <div className="row my-4">
             <h3> Productos en el inventario: </h3>
-            <table className="table table-striped shadow">
-              <thead>
-                <tr>
-                  <th scope="col">SKU</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Cantidad</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentProducts.map((product) => {
-                  return(
-                    <tr key={product.sku}>
-                      <th> {product.sku} </th>
-                      <td> {findSKU(product.sku)} </td>
-                      <td> {product.quantity} </td>
-                      <td> <button className="btn btn-dark" disabled> Graficar </button> </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
+            <div className="table-scrollbar">
+              <table className="table table-striped shadow">
+                <thead>
+                  <tr>
+                    <th scope="col">SKU</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentProducts.map((product) => {
+                    return(
+                      <tr key={product.sku}>
+                        <th> {product.sku} </th>
+                        <td> {findSKU(product.sku)} </td>
+                        <td> {product.quantity} </td>
+                        <td> <button className="btn btn-dark" disabled> Graficar </button> </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
 
 

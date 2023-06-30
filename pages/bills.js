@@ -34,10 +34,12 @@ export default function BillsView() {
       console.log(response)
       // Revisar que no sean null y que el largo no sea 1
       if (response.client_paid != null) {
-        if (response.client_paid.BillingDetails.length == 1) {
-          response.client_paid.BillingDetails = [response.client_paid.BillingDetails]
+        if (!Array.isArray(response.client_paid.BillingDetails)) {
+          setClientPaidBills([response.client_paid.BillingDetails]);
+
+        } else {
+          setClientPaidBills(response.client_paid.BillingDetails);
         }
-        setClientPaidBills(response.client_paid.BillingDetails);
       }
       if (response.client_pending != null) {
         if (!Array.isArray(response.client_pending.BillingDetails)) {
@@ -47,14 +49,14 @@ export default function BillsView() {
         }
       }
       if (response.supplier_paid != null) {
-        if (response.supplier_paid.BillingDetails.length == 1) {
-          response.supplier_paid.BillingDetails = [response.supplier_paid.BillingDetails]
+        if (!Array.isArray(response.supplier_paid.BillingDetails)) {
+          setSupplierPaidBills([response.supplier_paid.BillingDetails]);
+        } else {
+          setSupplierPaidBills(response.supplier_paid.BillingDetails);
         }
-        setSupplierPaidBills(response.supplier_paid.BillingDetails);
       }
       if (response.supplier_pending != null) {
         if (!Array.isArray(response.supplier_pending.BillingDetails)) {
-          console.log("Solo hay una pendiente")
           setSupplierPendingBills([response.supplier_pending.BillingDetails]);
         } else {
           setSupplierPendingBills(response.supplier_pending.BillingDetails);
@@ -142,7 +144,7 @@ export default function BillsView() {
         <div className="col-12 d-flex justify-content-between">
 
           <div>
-            <h2> Historial de facturas </h2>
+            <h3> Historial de facturas emitidas </h3>
           </div>
 
           <div>
@@ -163,9 +165,8 @@ export default function BillsView() {
         </div>
 
         {/* Facturas emitidas */}
-        <div className="row my-4">
-          <h3> Facturas emitidas </h3>
-          <table className="table table-striped shadow table-scrollbar">
+        <div className="row my-4 table-scrollbar">
+          <table className="table table-striped shadow">
             <thead>
               <tr>
                 <th scope="col">Id OC</th>
@@ -210,6 +211,30 @@ export default function BillsView() {
         </div>
 
         {/* Facturas recibidas */}
+
+        <div className="col-12 d-flex justify-content-between">
+          <div>
+            <h3> Historial de facturas recibidas </h3>
+          </div>
+
+          <div>
+            {/* Filter buttons */}
+            {estados.map((estado) => (
+              <button
+                key={estado}
+                className={`btn ${
+                  filterValue === estado ? "btn-outline-dark" : "btn-dark"
+                } mx-2`}
+                onClick={() => handleFilterButtonClick(estado)}
+              >
+                {estado}
+              </button>
+            ))}
+          </div>
+
+        </div>
+
+
         <div className="row my-4 table-scrollbar">
           <h3> Facturas recibidas </h3>
           <table className="table table-striped shadow">
