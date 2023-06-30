@@ -1,7 +1,6 @@
 import Navbar from "../components/navbar"
 import { apiGetInvoices } from "./api/apiservice"
 import React, { useState, useEffect, useRef } from "react"
-import axios from "axios";
 
 // Get the env variables
 const envirioment = process.env.ENVIRIOMENT;
@@ -17,16 +16,6 @@ export default function BillsView() {
   let [supplierPaidBills, setSupplierPaidBills] = useState([]);
   let [supplierPendingBills, setSupplierPendingBills] = useState([]);
   let [bankStatement, setBankStatement] = useState([]);
-  let [countResume, setCountResume] = useState({
-    countPaidSftpSup: 0,
-    countPendingSftpSup: 0,
-    countPaidSftpCli: 0,
-    countPendingSftpCli: 0,
-    countPaidB2BSup: 0,
-    countPendingB2BSup: 0,
-    countPaidB2BCli: 0,
-    countPendingB2BCli: 0
-  });
   const [filterValue, setFilterValue] = useState("");
 
   // Set the current bills
@@ -51,7 +40,7 @@ export default function BillsView() {
         setClientPaidBills(response.client_paid.BillingDetails);
       }
       if (response.client_pending != null) {
-        if (response.client_pending.BillingDetails.length == 1) {
+        if (Array.isArray(response.client_pending.BillingDetails)) {
           setClientPendingBills([response.client_pending.BillingDetails]);
         } else {
           setClientPendingBills(response.client_pending.BillingDetails);
@@ -64,7 +53,8 @@ export default function BillsView() {
         setSupplierPaidBills(response.supplier_paid.BillingDetails);
       }
       if (response.supplier_pending != null) {
-        if (response.supplier_pending.BillingDetails.length == 1) {
+        if (!Array.isArray(response.supplier_pending.BillingDetails)) {
+          console.log("Solo hay una pendiente")
           setSupplierPendingBills([response.supplier_pending.BillingDetails]);
         } else {
           setSupplierPendingBills(response.supplier_pending.BillingDetails);
@@ -73,45 +63,7 @@ export default function BillsView() {
       if (response.bank_statement != null) {
         setBankStatement(response.bank_statement.BankStatement);
       }
-      countSFTP()
     });
-  }
-
-  function countSFTP() {
-    let countPaidSftpSup = 0;
-    let countPendingSftpSup = 0;
-    let countPaidSftpCli = 0;
-    let countPendingSftpCli = 0;
-    let countPaidB2BSup = 0;
-    let countPendingB2BSup = 0;
-    let countPaidB2BCli = 0;
-    let countPendingB2BCli = 0;
-    if (supplierPaidBills.length != 0) {
-      countPaidSftpSup = supplierPaidBills.filter(bill => bill.client === "999").length
-      countPaidB2BSup = supplierPaidBills.filter(client => client.client !== "999").length
-    }
-    if (supplierPendingBills.length != 0) {
-      countPendingSftpSup = supplierPendingBills.filter(bill => bill.client === "999").length
-      countPendingB2BSup = supplierPendingBills.filter(client => client.client !== "999").length
-    }
-    if (clientPaidBills.length != 0) {
-      countPaidSftpCli = clientPaidBills.filter(bill => bill.supplier === "1000").length
-      countPaidB2BCli = clientPaidBills.filter(supplier => supplier.supplier !== "1000").length
-    }
-    if (clientPendingBills.length != 0) {
-      countPendingSftpCli = clientPendingBills.filter(bill => bill.supplier === "1000").length
-      countPendingB2BCli = clientPendingBills.filter(supplier => supplier.supplier !== "1000").length
-    }
-    setCountResume({
-      countPaidSftpSup: countPaidSftpSup,
-      countPendingSftpSup: countPendingSftpSup,
-      countPaidSftpCli: countPaidSftpCli,
-      countPendingSftpCli: countPendingSftpCli,
-      countPaidB2BSup: countPaidB2BSup,
-      countPendingB2BSup: countPendingB2BSup,
-      countPaidB2BCli: countPaidB2BCli,
-      countPendingB2BCli: countPendingB2BCli
-    })
   }
 
   function handleFilterChange(event) {
@@ -153,29 +105,35 @@ export default function BillsView() {
           {/* Bank Statement */}
           <div className="col-12 col-lg-4">
             <h3> Resumen general </h3>
+            {bankStatement.length === 0 ? <p> Cargando... </p> : <div>
             <p> Balance : {bankStatement.balance} </p>
             <p> Total pagadas por nosotros: {clientPaidBills.length} </p>
             <p> Total pendientes por nosotros: {clientPendingBills.length} </p>
             <p> Total pagadas hacia nosotros: {supplierPaidBills.length} </p>
             <p> Total pendientes hacia nosotros: {supplierPendingBills.length} </p>
+            </div>}
           </div>
 
           {/* Resumen facturas emitidas --> Barchart */}
           <div className="col-12 col-lg-4">
             <h3> Resumen facturas emitidas </h3>
-            <p> Total SFTP pagadas: {countResume.countPaidSftpSup} </p>
-            <p> Total SFTP pendientes: {countResume.countPendingSftpSup} </p>
-            <p> Total B2B pagadas: {countResume.countPaidB2BSup} </p>
-            <p> Total B2B pendientes: {countResume.countPendingB2BSup} </p>
+            {supplierPaidBills.length === 0 ? <p> Cargando... </p> : <div>
+            <p> Total SFTP pagadas: {supplierPaidBills.filter(bill => bill.client === "999").length} </p>
+            <p> Total SFTP pendientes: {supplierPendingBills.filter(bill => bill.client === "999").length} </p>
+            <p> Total B2B pagadas: {supplierPaidBills.filter(client => client.client !== "999").length} </p>
+            <p> Total B2B pendientes: {supplierPendingBills.filter(client => client.client !== "999").length} </p>
+            </div>}
           </div>
 
           {/* Resumen facturas recibidas --> Barchart */}
           <div className="col-12 col-lg-4">
             <h3> Resumen facturas recibidas </h3>
-            <p> Total SFTP pagadas: {countResume.countPaidSftpCli} </p>
-            <p> Total SFTP pendientes: {countResume.countPendingSftpCli} </p>
-            <p> Total B2B pagadas: {countResume.countPaidB2BCli} </p>
-            <p> Total B2B pendientes: {countResume.countPendingB2BCli} </p>
+            {clientPaidBills.length === 0 ? <p> Cargando... </p> : <div>
+            <p> Total SFTP pagadas: {clientPaidBills.filter(bill => bill.supplier === "1000").length} </p>
+            <p> Total SFTP pendientes: {clientPaidBills.filter(supplier => supplier.supplier !== "1000").length} </p>
+            <p> Total B2B pagadas: {clientPendingBills.filter(bill => bill.supplier === "1000").length} </p>
+            <p> Total B2B pendientes: {clientPendingBills.filter(supplier => supplier.supplier !== "1000").length} </p>
+            </div>}
           </div>
 
         </div>
@@ -220,7 +178,7 @@ export default function BillsView() {
               </tr>
             </thead>
             <tbody>
-              {supplierPaidBills.map((bill) => {
+              {supplierPaidBills.length === 0 ? null : supplierPaidBills.map((bill) => {
                 return(
                   <tr key={bill.id}>
                     <th> {bill.id} </th>
@@ -233,7 +191,8 @@ export default function BillsView() {
                   </tr>
                 )
               })}
-              {supplierPendingBills.map((bill) => {
+
+              {supplierPendingBills.length === 0 ? null : supplierPendingBills.map((bill) => {
                 return(
                   <tr key={bill.id}>
                     <th> {bill.id} </th>
@@ -266,7 +225,7 @@ export default function BillsView() {
               </tr>
             </thead>
             <tbody>
-            {clientPaidBills.map((bill) => {
+            {clientPaidBills.length === 0 ? null : clientPaidBills.map((bill) => {
                 return(
                   <tr key={bill.id}>
                     <th> {bill.id} </th>
@@ -279,7 +238,7 @@ export default function BillsView() {
                   </tr>
                 )
               })}
-              {clientPendingBills.map((bill) => {
+              {clientPendingBills.length === 0 ? null : clientPendingBills.map((bill) => {
                 return(
                   <tr key={bill.id}>
                     <th> {bill.id} </th>
