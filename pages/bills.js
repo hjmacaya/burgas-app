@@ -40,7 +40,7 @@ export default function BillsView() {
         setClientPaidBills(response.client_paid.BillingDetails);
       }
       if (response.client_pending != null) {
-        if (Array.isArray(response.client_pending.BillingDetails)) {
+        if (!Array.isArray(response.client_pending.BillingDetails)) {
           setClientPendingBills([response.client_pending.BillingDetails]);
         } else {
           setClientPendingBills(response.client_pending.BillingDetails);
