@@ -15,8 +15,11 @@ export default function BillsView() {
   let [clientPendingBills, setClientPendingBills] = useState([]);
   let [supplierPaidBills, setSupplierPaidBills] = useState([]);
   let [supplierPendingBills, setSupplierPendingBills] = useState([]);
+  let [currentEmittedBills, setCurrentEmittedBills] = useState([]);
+  let [currentRecievedBills, setCurrentRecievedBills] = useState([]);
   let [bankStatement, setBankStatement] = useState([]);
-  const [filterValue, setFilterValue] = useState("");
+  const [filterValueEmitted, setFilterValueEmitted] = useState("");
+  const [filterValueRecieved, setFilterValueRecieved] = useState("");
 
   // Set the current bills
   useEffect(() => {
@@ -36,7 +39,6 @@ export default function BillsView() {
       if (response.client_paid != null) {
         if (!Array.isArray(response.client_paid.BillingDetails)) {
           setClientPaidBills([response.client_paid.BillingDetails]);
-
         } else {
           setClientPaidBills(response.client_paid.BillingDetails);
         }
@@ -65,6 +67,10 @@ export default function BillsView() {
       if (response.bank_statement != null) {
         setBankStatement(response.bank_statement.BankStatement);
       }
+
+      // Set the current bills
+      setCurrentEmittedBills(supplierPaidBills.concat(supplierPendingBills));
+      setCurrentRecievedBills(clientPaidBills.concat(clientPendingBills));
     });
   }
 
@@ -72,20 +78,35 @@ export default function BillsView() {
     setFilterValue(event.target.value);
   }
 
-  // Filter the orders based on the selected filter value
-  // const filteredBills = currentBills.filter((bill) =>
-  //   bill.status.includes("paid")
-  // );
+  // Filter the emitted bills based on the selected filter value
+  const filteredEmittedBills = currentEmittedBills.filter((bill) =>
+    bill.status.includes(filterValueEmitted)
+  );
+
+  // Filter the recivied bills based on the selected filter value
+  const filteredRecievedBills = currentRecievedBills.filter((bill) =>
+    bill.status.includes(filterValueRecieved)
+  );
 
   // Filter button click handler
-  function handleFilterButtonClick(estado) {
-    if (estado == "Todas") {
-      setFilterValue("");
-      return;
+  function handleFilterButtonClick(estado, tipo) {
+    if (tipo === "emitted") {
+      if (estado === "Todas") {
+        setCurrentEmittedBills(supplierPaidBills.concat(supplierPendingBills));
+      } else if (estado === "Pagadas") {
+        setCurrentEmittedBills(supplierPaidBills);
+      } else {
+        setCurrentEmittedBills(supplierPendingBills);
+      }
+    } else {
+      if (estado === "Todas") {
+        setCurrentRecievedBills(clientPaidBills.concat(clientPendingBills));
+      } else if (estado === "Pagadas") {
+        setCurrentRecievedBills(clientPaidBills);
+      } else {
+        setCurrentRecievedBills(clientPendingBills);
+      }
     }
-    let estado_valido = estado.slice(0, -1)
-    estado_valido = estado_valido.toLowerCase()
-    setFilterValue(estado_valido);
   }
 
   // Available "estados" for filtering
@@ -153,9 +174,9 @@ export default function BillsView() {
               <button
                 key={estado}
                 className={`btn ${
-                  filterValue === estado ? "btn-outline-dark" : "btn-dark"
+                  filterValueEmitted === estado ? "btn-outline-dark" : "btn-dark"
                 } mx-2`}
-                onClick={() => handleFilterButtonClick(estado)}
+                onClick={() => handleFilterButtonClick(estado, "emitted")}
               >
                 {estado}
               </button>
@@ -179,6 +200,21 @@ export default function BillsView() {
               </tr>
             </thead>
             <tbody>
+              {currentEmittedBills.length === 0 ? null : currentEmittedBills.map((bill) => {
+                return(
+                  <tr key={bill.id}>
+                    <th> {bill.id} </th>
+                    <td> {bill.client} </td>
+                    <td> {bill.supplier} </td>
+                    <td> {bill.status} </td>
+                    <td> {bill.price} </td>
+                    <td> {bill.interest} </td>
+                    <td> {bill.totalPrice} </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+            {/* <tbody>
               {supplierPaidBills.length === 0 ? null : supplierPaidBills.map((bill) => {
                 return(
                   <tr key={bill.id}>
@@ -206,7 +242,7 @@ export default function BillsView() {
                   </tr>
                 )
               })}
-            </tbody>
+            </tbody> */}
           </table>
         </div>
 
@@ -223,9 +259,9 @@ export default function BillsView() {
               <button
                 key={estado}
                 className={`btn ${
-                  filterValue === estado ? "btn-outline-dark" : "btn-dark"
+                  filterValueRecieved === estado ? "btn-outline-dark" : "btn-dark"
                 } mx-2`}
-                onClick={() => handleFilterButtonClick(estado)}
+                onClick={() => handleFilterButtonClick(estado, "recieved")}
               >
                 {estado}
               </button>
@@ -250,6 +286,21 @@ export default function BillsView() {
               </tr>
             </thead>
             <tbody>
+            {currentRecievedBills.length === 0 ? null : currentRecievedBills.map((bill) => {
+                return(
+                  <tr key={bill.id}>
+                    <th> {bill.id} </th>
+                    <td> {bill.client} </td>
+                    <td> {bill.supplier} </td>
+                    <td> {bill.status} </td>
+                    <td> {bill.price} </td>
+                    <td> {bill.interest} </td>
+                    <td> {bill.totalPrice} </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+            {/* <tbody>
             {clientPaidBills.length === 0 ? null : clientPaidBills.map((bill) => {
                 return(
                   <tr key={bill.id}>
@@ -276,7 +327,7 @@ export default function BillsView() {
                   </tr>
                 )
               })}
-            </tbody>
+            </tbody> */}
           </table>
         </div>
 
