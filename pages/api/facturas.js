@@ -26,25 +26,37 @@ function callSoapMethod(client, methodName, params) {
 
 async function consumeAPI() {
   try {
+
+    // Set env variables to create client
     const environment = process.env.ENVIRIOMENT;
     const group = parseInt(process.env.GROUP);
     const secret = environment === 'dev' ? process.env.DEV_SECRET : process.env.PROD_SECRET;
     const wsdl = environment === 'dev' ? process.env.WSLD_DEV : process.env.WSLD_PROD;
+
+    // Create client with security credentials
     const client = await createSoapClient(wsdl);
     let wsSecurity = new WSSecurity(group.toString(), secret, {})
     client.setSecurity(wsSecurity);
+
+    // Call soap methods
     const supplier_paid = await callSoapMethod(client, 'getInvoices', {side: 'supplier', status: 'paid'});
     const supplier_pending = await callSoapMethod(client, 'getInvoices', {side: 'supplier', status: 'pending'});
     const client_paid = await callSoapMethod(client, 'getInvoices', {side: 'client', status: 'paid'});
     const client_pending = await callSoapMethod(client, 'getInvoices', {side: 'client', status: 'pending'});
+    const bank_statement = await callSoapMethod(client, 'getBankStatement', {side: 'client'});
+
+    // Set the result
     let result = {
       "supplier_paid": supplier_paid,
       "supplier_pending": supplier_pending,
       "client_paid": client_paid,
       "client_pending": client_pending,
+      "bank_statement": bank_statement,
     }
     return result;
-  } catch (err) {
+  }
+
+  catch (err) {
     console.error('Error al consumir la API SOAP:', err);
     throw err;
   }

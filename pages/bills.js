@@ -16,6 +16,7 @@ export default function BillsView() {
   let [clientPendingBills, setClientPendingBills] = useState([]);
   let [supplierPaidBills, setSupplierPaidBills] = useState([]);
   let [supplierPendingBills, setSupplierPendingBills] = useState([]);
+  let [bankStatement, setBankStatement] = useState([]);
   const [filterValue, setFilterValue] = useState("");
 
   // Set the current bills
@@ -32,18 +33,33 @@ export default function BillsView() {
     apiGetInvoices()
     .then((response) => {
       console.log(response)
-      // Revisar que no sean null
+      // Revisar que no sean null y que el largo no sea 1
       if (response.client_paid != null) {
+        if (response.client_paid.BillingDetails.length == 1) {
+          response.client_paid.BillingDetails = [response.client_paid.BillingDetails]
+        }
         setClientPaidBills(response.client_paid.BillingDetails);
       }
       if (response.client_pending != null) {
+        if (response.client_pending.BillingDetails.length == 1) {
+          response.client_pending.BillingDetails = [response.client_pending.BillingDetails]
+        }
         setClientPendingBills(response.client_pending.BillingDetails);
       }
       if (response.supplier_paid != null) {
+        if (response.supplier_paid.BillingDetails.length == 1) {
+          response.supplier_paid.BillingDetails = [response.supplier_paid.BillingDetails]
+        }
         setSupplierPaidBills(response.supplier_paid.BillingDetails);
       }
       if (response.supplier_pending != null) {
+        if (response.supplier_pending.BillingDetails.length == 1) {
+          response.supplier_pending.BillingDetails = [response.supplier_pending.BillingDetails]
+        }
         setSupplierPendingBills(response.supplier_pending.BillingDetails);
+      }
+      if (response.bank_statement != null) {
+        setBankStatement(response.bank_statement.BankStatement);
       }
     });
   }
@@ -80,28 +96,41 @@ export default function BillsView() {
       <Navbar />
       <div className="container text-center my-3">
 
-      <div className="col-12 d-flex justify-content-between">
+        {/* Resumen de facturas */}
+        <div className="row my-4">
+          <h2> Resumen de facturas </h2>
 
-        <div>
-          <h2> Historial de facturas </h2>
+          {/* Bank Statement */}
+
+
+          {/* Resumen facturas emitidas --> Barchart */}
+
+          {/* Resumen facturas recibidas --> Barchart */}
         </div>
 
-        <div>
-          {/* Filter buttons */}
-          {estados.map((estado) => (
-            <button
-              key={estado}
-              className={`btn ${
-                filterValue === estado ? "btn-outline-dark" : "btn-dark"
-              } mx-2`}
-              onClick={() => handleFilterButtonClick(estado)}
-            >
-              {estado}
-            </button>
-          ))}
-        </div>
 
-      </div>
+        <div className="col-12 d-flex justify-content-between">
+
+          <div>
+            <h2> Historial de facturas </h2>
+          </div>
+
+          <div>
+            {/* Filter buttons */}
+            {estados.map((estado) => (
+              <button
+                key={estado}
+                className={`btn ${
+                  filterValue === estado ? "btn-outline-dark" : "btn-dark"
+                } mx-2`}
+                onClick={() => handleFilterButtonClick(estado)}
+              >
+                {estado}
+              </button>
+            ))}
+          </div>
+
+        </div>
 
         {/* Facturas emitidas */}
         <div className="row my-4">
