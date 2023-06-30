@@ -1,33 +1,52 @@
 import Navbar from "../components/navbar"
-import BarChart from "../components/barchart"
-import DonutChart from "../components/donutchart"
-import LineChart from "../components/linechart"
+import { apiGetInvoices } from "./api/apiservice"
 import React, { useState, useEffect, useRef } from "react"
-import { apiGetOrders } from "./api/apiservice"
-import axios from "axios"
-import productos from "../data/productos.json" assert { type: 'json' }
-import ordenes from "../data/orders.json" assert { type: 'json' }
-import { FaJediOrder } from "react-icons/fa"
+import axios from "axios";
 
 // Get the env variables
 const envirioment = process.env.ENVIRIOMENT;
 const group = parseInt(process.env.GROUP); // env only save str values
 const secret = envirioment == "dev" ? process.env.DEV_SECRET : process.env.PROD_SECRET;
+const wsdl = envirioment == "dev" ? process.env.WSLD_DEV : process.env.WSLD_PROD;
 
 export default function BillsView() {
 
   // Set the state variables
-  let [currentBills, setCurrentBills] = useState([]);
+  let [clientPaidBills, setClientPaidBills] = useState([]);
+  let [clientPendingBills, setClientPendingBills] = useState([]);
+  let [supplierPaidBills, setSupplierPaidBills] = useState([]);
+  let [supplierPendingBills, setSupplierPendingBills] = useState([]);
   const [filterValue, setFilterValue] = useState("");
+
+  // Set the current bills
+  useEffect(() => {
+    try {
+      // Step 1: fetch the token
+      prepare_information()
+    } catch (err) {
+      console.error(err)
+    }
+  }, [])
+
+  function prepare_information() {
+    apiGetInvoices()
+    .then((response) => {
+      console.log(response)
+      setClientPaidBills(response.client_paid.BillingDetails);
+      setClientPendingBills(response.client_pending.BillingDetails);
+      setSupplierPaidBills(response.supplier_paid.BillingDetails);
+      setSupplierPendingBills(response.supplier_pending.BillingDetails);
+    });
+  }
 
   function handleFilterChange(event) {
     setFilterValue(event.target.value);
   }
 
   // Filter the orders based on the selected filter value
-  const filteredBills = currentBills.filter((bill) =>
-    bill.estado.includes(filterValue)
-  );
+  // const filteredBills = currentBills.filter((bill) =>
+  //   bill.status.includes("paid")
+  // );
 
   // Filter button click handler
   function handleFilterButtonClick(estado) {
@@ -91,16 +110,29 @@ export default function BillsView() {
               </tr>
             </thead>
             <tbody>
-              {currentBills.map((bill) => {
+              {supplierPaidBills.map((bill) => {
                 return(
                   <tr key={bill.id}>
                     <th> {bill.id} </th>
-                    <td> {bill.cliente} </td>
-                    <td> {bill.proveedor} </td>
-                    <td> {bill.estado} </td>
-                    <td> {bill.precio} </td>
-                    <td> {bill.intereses} </td>
-                    <td> {bill.precioTotal} </td>
+                    <td> {bill.client} </td>
+                    <td> {bill.supplier} </td>
+                    <td> {bill.status} </td>
+                    <td> {bill.price} </td>
+                    <td> {bill.interest} </td>
+                    <td> {bill.totalPrice} </td>
+                  </tr>
+                )
+              })}
+              {supplierPendingBills.map((bill) => {
+                return(
+                  <tr key={bill.id}>
+                    <th> {bill.id} </th>
+                    <td> {bill.client} </td>
+                    <td> {bill.supplier} </td>
+                    <td> {bill.status} </td>
+                    <td> {bill.price} </td>
+                    <td> {bill.interest} </td>
+                    <td> {bill.totalPrice} </td>
                   </tr>
                 )
               })}
@@ -124,16 +156,29 @@ export default function BillsView() {
               </tr>
             </thead>
             <tbody>
-              {currentBills.map((bill) => {
+            {clientPaidBills.map((bill) => {
                 return(
                   <tr key={bill.id}>
                     <th> {bill.id} </th>
-                    <td> {bill.cliente} </td>
-                    <td> {bill.proveedor} </td>
-                    <td> {bill.estado} </td>
-                    <td> {bill.precio} </td>
-                    <td> {bill.intereses} </td>
-                    <td> {bill.precioTotal} </td>
+                    <td> {bill.client} </td>
+                    <td> {bill.supplier} </td>
+                    <td> {bill.status} </td>
+                    <td> {bill.price} </td>
+                    <td> {bill.interest} </td>
+                    <td> {bill.totalPrice} </td>
+                  </tr>
+                )
+              })}
+              {clientPendingBills.map((bill) => {
+                return(
+                  <tr key={bill.id}>
+                    <th> {bill.id} </th>
+                    <td> {bill.client} </td>
+                    <td> {bill.supplier} </td>
+                    <td> {bill.status} </td>
+                    <td> {bill.price} </td>
+                    <td> {bill.interest} </td>
+                    <td> {bill.totalPrice} </td>
                   </tr>
                 )
               })}
