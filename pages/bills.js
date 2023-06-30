@@ -32,10 +32,19 @@ export default function BillsView() {
     apiGetInvoices()
     .then((response) => {
       console.log(response)
-      setClientPaidBills(response.client_paid.BillingDetails);
-      setClientPendingBills(response.client_pending.BillingDetails);
-      setSupplierPaidBills(response.supplier_paid.BillingDetails);
-      setSupplierPendingBills(response.supplier_pending.BillingDetails);
+      // Revisar que no sean null
+      if (response.client_paid != null) {
+        setClientPaidBills(response.client_paid.BillingDetails);
+      }
+      if (response.client_pending != null) {
+        setClientPendingBills(response.client_pending.BillingDetails);
+      }
+      if (response.supplier_paid != null) {
+        setSupplierPaidBills(response.supplier_paid.BillingDetails);
+      }
+      if (response.supplier_pending != null) {
+        setSupplierPendingBills(response.supplier_pending.BillingDetails);
+      }
     });
   }
 
