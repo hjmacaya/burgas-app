@@ -51,7 +51,7 @@ export default function OrdenesView() {
       <div>
         <Navbar />
           <div className="container text-center my-3">
-            No hay ordenes. Error al obtenerlas.
+            Cargando las ordenes de compra...
           </div>
       </div>
     )
