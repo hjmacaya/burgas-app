@@ -81,7 +81,8 @@ async function apiGetInvoices() {
   try {
     const path = "/api/facturas"; // Update the path to the local API route
     const response = await axios.get(path);
-    return response.data;
+    console.log(response)
+    return response.data.result;
   } catch (e) {
     return errorGenerator(e);
   }
