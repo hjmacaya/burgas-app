@@ -51,7 +51,7 @@ export default function OrdenesView() {
       <div>
         <Navbar />
           <div className="container text-center my-3">
-            Cargando las ordenes de compra...
+            <h3>Cargando las ordenes de compra...</h3>
           </div>
       </div>
     )

@@ -313,7 +313,6 @@ export default function BillsView() {
 
 
         <div className="row my-4 table-scrollbar">
-          <h3> Facturas recibidas </h3>
           <table className="table table-striped shadow">
             <thead>
               <tr>

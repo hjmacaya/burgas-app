@@ -18,7 +18,7 @@ p.store-description {
 
 .table-scrollbar {
   height: 400px;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 .grilla_resumen {
@@ -36,6 +36,20 @@ p.store-description {
   grid-template-rows: 100% 50%;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
+}
+
+.table-scrollbar thead th {
+  position: sticky;
+  background-color: #ffffff;
+  top: 0;
+}
+table {
+  border-collapse: collapse;        
+  width: 100%;
+}
+th,
+td {
+  padding: 8px 15px;
 }
 
 .subitem {
