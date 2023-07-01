@@ -50,4 +50,5 @@ p.store-description {
 .item-inline {
   display: inline-flex;
   flex-wrap: nowrap;
+  width: 100%;
 }
