@@ -120,46 +120,115 @@ export default function BillsView() {
     <div>
       <Navbar />
       <div className="container text-center my-3">
-
+        
+        <h2> Resumen de facturas </h2>
         {/* Resumen de facturas */}
-        <div className="row my-4">
-          <h2> Resumen de facturas </h2>
-
+        {bankStatement.length === 0 || supplierPaidBills.length === 0 || clientPaidBills.length === 0? <h3> Cargando... </h3> : <div className="row my-4">
           {/* Bank Statement */}
-          <div className="col-12 col-lg-4">
-            <h3> Resumen general </h3>
-            {bankStatement.length === 0 ? <p> Cargando... </p> : <div>
-            <p> Balance : {bankStatement.balance} </p>
-            <p> Total pagadas por nosotros: {clientPaidBills.length} </p>
-            <p> Total pendientes por nosotros: {clientPendingBills.length} </p>
-            <p> Total pagadas hacia nosotros: {supplierPaidBills.length} </p>
-            <p> Total pendientes hacia nosotros: {supplierPendingBills.length} </p>
-            </div>}
-          </div>
+              <div className="grilla_resumen">
+                <div className="item_grilla">
+                  <h4> Balance</h4>
+                  <h5> {Intl.NumberFormat('es-CL', {currency: 'CLP', style:'currency'}).format(bankStatement.balance)} </h5>
+                </div>
+                <div className="item_grilla">
+                  <h4> Total pagadas </h4>
+                  <div className="item-inline">
+                    <div className="subitem">
+                      <p> Recibidas </p>
+                      <p> {clientPaidBills.length} </p>
+                    </div>
+                    <div className="subitem">
+                      <p> Emitidas </p>
+                      <p> {supplierPaidBills.length} </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="item_grilla">
+                  <h4> Total pendientes </h4>
+                  <div className="item-inline">
+                    <div className="subitem">
+                      <p> Recibidas </p>
+                      <p> {clientPendingBills.length} </p>
+                    </div>
+                    <div className="subitem">
+                      <p> Emitidas </p>
+                      <p> {supplierPendingBills.length} </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {/* Resumen facturas emitidas --> Barchart */}
+            <div className="grilla_canales">
+              <div>
+                <h4>Canal SFTP</h4>
+                <div className="item_grilla">
+                  <div className="item-inline">
+                    <div className="subitem">
+                      <h5>Emitidas</h5>
+                      <div className="item-inline">
+                        <div className="subitem">
+                          <p>Pagadas</p>
+                          <p>{supplierPaidBills.filter(bill => bill.client === "999").length}</p>
+                        </div>
+                        <div className="subitem">
+                          <p>Pendientes</p>
+                          <p>{supplierPendingBills.filter(bill => bill.client === "999").length}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="subitem">
+                      <h5>Recibidas</h5>
+                      <div className="item-inline">
+                        <div className="subitem">
+                          <p>Pagadas</p>
+                          <p>{clientPaidBills.filter(bill => bill.supplier === "1000").length}</p>
+                        </div>
+                        <div className="subitem">
+                          <p>Pendientes</p>
+                          <p>{clientPendingBills.filter(bill => bill.supplier === "1000").length}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-          {/* Resumen facturas emitidas --> Barchart */}
-          <div className="col-12 col-lg-4">
-            <h3> Resumen facturas emitidas </h3>
-            {supplierPaidBills.length === 0 ? <p> Cargando... </p> : <div>
-            <p> Total SFTP pagadas: {supplierPaidBills.filter(bill => bill.client === "999").length} </p>
-            <p> Total SFTP pendientes: {supplierPendingBills.filter(bill => bill.client === "999").length} </p>
-            <p> Total B2B pagadas: {supplierPaidBills.filter(client => client.client !== "999").length} </p>
-            <p> Total B2B pendientes: {supplierPendingBills.filter(client => client.client !== "999").length} </p>
-            </div>}
+            {/* Resumen facturas recibidas --> Barchart */}
+              <div>
+                <h4>Canal B2B</h4>
+                <div className="item_grilla">
+                  <div className="item-inline">
+                    <div className="subitem">
+                      <h5>Emitidas</h5>
+                      <div className="item-inline">
+                        <div className="subitem">
+                          <p>Pagadas</p>
+                          <p>{supplierPaidBills.filter(bill => bill.client !== "999").length}</p>
+                        </div>
+                        <div className="subitem">
+                          <p>Pendientes</p>
+                          <p>{supplierPendingBills.filter(bill => bill.client !== "999").length}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="subitem">
+                      <h5>Recibidas</h5>
+                      <div className="item-inline">
+                        <div className="subitem">
+                          <p>Pagadas</p>
+                          <p>{clientPaidBills.filter(bill => bill.supplier !== "1000").length}</p>
+                        </div>
+                        <div className="subitem">
+                          <p>Pendientes</p>
+                          <p>{clientPendingBills.filter(bill => bill.supplier !== "1000").length}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
           </div>
-
-          {/* Resumen facturas recibidas --> Barchart */}
-          <div className="col-12 col-lg-4">
-            <h3> Resumen facturas recibidas </h3>
-            {clientPaidBills.length === 0 ? <p> Cargando... </p> : <div>
-            <p> Total SFTP pagadas: {clientPaidBills.filter(bill => bill.supplier === "1000").length} </p>
-            <p> Total SFTP pendientes: {clientPaidBills.filter(supplier => supplier.supplier !== "1000").length} </p>
-            <p> Total B2B pagadas: {clientPendingBills.filter(bill => bill.supplier === "1000").length} </p>
-            <p> Total B2B pendientes: {clientPendingBills.filter(supplier => supplier.supplier !== "1000").length} </p>
-            </div>}
-          </div>
-
-        </div>
+        </div>}
 
 
         <div className="col-12 d-flex justify-content-between">
@@ -201,48 +270,20 @@ export default function BillsView() {
             </thead>
             <tbody>
               {currentEmittedBills.length === 0 ? null : currentEmittedBills.map((bill) => {
+                
                 return(
                   <tr key={bill.id}>
                     <th> {bill.id} </th>
                     <td> {bill.client} </td>
                     <td> {bill.supplier} </td>
                     <td> {bill.status} </td>
-                    <td> {bill.price} </td>
-                    <td> {bill.interest} </td>
-                    <td> {bill.totalPrice} </td>
+                    <td> {Intl.NumberFormat('es-CL', {currency: 'CLP', style:'currency'}).format(bill.price)} </td>
+                    <td> {Intl.NumberFormat('es-CL', {currency: 'CLP', style:'currency'}).format(bill.interest)} </td>
+                    <td> {Intl.NumberFormat('es-CL', {currency: 'CLP', style:'currency'}).format(bill.totalPrice)} </td>
                   </tr>
                 )
               })}
             </tbody>
-            {/* <tbody>
-              {supplierPaidBills.length === 0 ? null : supplierPaidBills.map((bill) => {
-                return(
-                  <tr key={bill.id}>
-                    <th> {bill.id} </th>
-                    <td> {bill.client} </td>
-                    <td> {bill.supplier} </td>
-                    <td> {bill.status} </td>
-                    <td> {bill.price} </td>
-                    <td> {bill.interest} </td>
-                    <td> {bill.totalPrice} </td>
-                  </tr>
-                )
-              })}
-
-              {supplierPendingBills.length === 0 ? null : supplierPendingBills.map((bill) => {
-                return(
-                  <tr key={bill.id}>
-                    <th> {bill.id} </th>
-                    <td> {bill.client} </td>
-                    <td> {bill.supplier} </td>
-                    <td> {bill.status} </td>
-                    <td> {bill.price} </td>
-                    <td> {bill.interest} </td>
-                    <td> {bill.totalPrice} </td>
-                  </tr>
-                )
-              })}
-            </tbody> */}
           </table>
         </div>
 
@@ -293,9 +334,9 @@ export default function BillsView() {
                     <td> {bill.client} </td>
                     <td> {bill.supplier} </td>
                     <td> {bill.status} </td>
-                    <td> {bill.price} </td>
-                    <td> {bill.interest} </td>
-                    <td> {bill.totalPrice} </td>
+                    <td> {Intl.NumberFormat('es-CL', {currency: 'CLP', style:'currency'}).format(bill.price)} </td>
+                    <td> {Intl.NumberFormat('es-CL', {currency: 'CLP', style:'currency'}).format(bill.interest)} </td>
+                    <td> {Intl.NumberFormat('es-CL', {currency: 'CLP', style:'currency'}).format(bill.totalPrice)} </td>
                   </tr>
                 )
               })}

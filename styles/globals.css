@@ -20,3 +20,34 @@ p.store-description {
   height: 400px;
   overflow: auto;
 }
+
+.grilla_resumen {
+  display: grid;
+  /* justify-content: center; */
+  grid-template-rows: 100% 50%;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  margin-bottom: 10px;
+}
+
+.grilla_canales {
+  display: grid;
+  /* justify-content: center; */
+  grid-template-rows: 100% 50%;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.subitem {
+  width: 50%;
+}
+
+.item_grilla {
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+
+.item-inline {
+  display: inline-flex;
+  flex-wrap: nowrap;
+}
